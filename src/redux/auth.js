@@ -101,4 +101,5 @@ export const logoutAction = () => (dispatch) => {
     type: LOGOUT,
     payload: null
   })
+  window.location.href = '/sign-in'
 }

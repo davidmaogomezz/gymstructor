@@ -1,18 +1,15 @@
 import { Link } from "react-router-dom";
 import { Navbar } from 'react-bootstrap';
-import { useHistory } from "react-router-dom";
 import {useDispatch} from 'react-redux'
 
 import {logoutAction} from '../redux/auth'
 
 const NavInstructor = () => {
 
-  const history = useHistory()
   const dispatch = useDispatch()
 
   const logout = () => {    
     dispatch(logoutAction())
-    history.push("/");
   }
 
   return (
