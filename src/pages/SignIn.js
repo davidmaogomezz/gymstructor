@@ -7,23 +7,18 @@ import {variantAction} from '../redux/auth'
 
 import AlertInstructor from '../components/AlertInstructor'
 import { Link } from "react-router-dom";
-import { useHistory } from 'react-router-dom';
 
 const SignIn = () => {
   const[email, setEmail] = useState('')
   const[password, setPassword] = useState('')
 
   const dispatch = useDispatch()
-  const user = useSelector(store => store.auth.user)
   const message = useSelector(store => store.auth.message)
   const variant = useSelector(store => store.auth.variant)
-
-  const history = useHistory();
 
   const signIn = (e) => {
     e.preventDefault()    
     dispatch(signInAction(email, password))
-    if (user !== null) history.push('/home')
   }
 
   const resetMessage = () => {
