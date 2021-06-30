@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-// hooks react redux
 import {useDispatch, useSelector} from 'react-redux'
 
 import {signInAction} from '../redux/auth'
