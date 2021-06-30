@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import {auth} from "../db/auth";
-import AlertInstructor from './AlertInstructor'
+import AlertInstructor from '../components/AlertInstructor'
 import { Link } from "react-router-dom";
 
 const SignUp = () => {
