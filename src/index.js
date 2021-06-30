@@ -1,17 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Provider} from 'react-redux'
+import generateStore from './redux/store'
 import './index.css';
 import './App.css';
 import App from './routes/App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+const store = generateStore()
+
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <div className="App">
       <App />
     </div>    
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById('root')
 );
 
