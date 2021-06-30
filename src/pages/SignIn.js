@@ -1,5 +1,11 @@
 import React, { useState } from 'react'
-import {auth} from "../db/auth";
+// hooks react redux
+import {useDispatch, useSelector} from 'react-redux'
+
+import {signInAction} from '../redux/auth'
+import {messageAction} from '../redux/auth'
+import {variantAction} from '../redux/auth'
+
 import AlertInstructor from '../components/AlertInstructor'
 import { Link } from "react-router-dom";
 import { useHistory } from 'react-router-dom';
@@ -7,26 +13,23 @@ import { useHistory } from 'react-router-dom';
 const SignIn = () => {
   const[email, setEmail] = useState('')
   const[password, setPassword] = useState('')
-  const[message, setMessage] = useState('')
-  const[variant, setVariant] = useState('')
+
+  const dispatch = useDispatch()
+  const user = useSelector(store => store.auth.user)
+  const message = useSelector(store => store.auth.message)
+  const variant = useSelector(store => store.auth.variant)
 
   const history = useHistory();
 
   const signIn = (e) => {
     e.preventDefault()    
-    auth.signInWithEmailAndPassword(email, password).then(response => {
-      const user = response.user
-      localStorage.setItem('user', JSON.stringify(user))
-      history.push('/home')
-    }).catch(err => {
-      setMessage(err.message)
-      setVariant('danger')
-    })    
+    dispatch(signInAction(email, password))
+    if (user !== null) history.push('/home')
   }
 
   const resetMessage = () => {
-    setMessage('')
-    setVariant('')
+    dispatch(messageAction(''))
+    dispatch(variantAction(''))
   }
 
   return (
