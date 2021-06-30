@@ -1,13 +1,17 @@
 import { Link } from "react-router-dom";
-import { Navbar, Nav } from 'react-bootstrap';
+import { Navbar } from 'react-bootstrap';
 import { useHistory } from "react-router-dom";
+import {useDispatch} from 'react-redux'
+
+import {logoutAction} from '../redux/auth'
 
 const NavInstructor = () => {
 
   const history = useHistory()
+  const dispatch = useDispatch()
 
-  const logout = () => {
-    localStorage.clear()
+  const logout = () => {    
+    dispatch(logoutAction())
     history.push("/");
   }
 
@@ -15,12 +19,6 @@ const NavInstructor = () => {
     <Navbar bg="light" expand="lg">
       <Link className="navbar-brand" to="/">Gymstructor</Link>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
-
-      <Nav className="mr-auto">
-        <Link className="nav-link" to="/sign-in">Iniciar sesión</Link>
-        <Link className="nav-link" to="/sign-up">Registrarme</Link>   
-      </Nav>
-
       <button className="nav-link" onClick={logout}>Salir</button>
     </Navbar>    
   )

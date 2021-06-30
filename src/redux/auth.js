@@ -8,6 +8,7 @@ const dataInitial = {
 
 const SIGN_IN = 'SIGN_IN'
 const SIGN_UP = 'SIGN_UP'
+const LOGOUT = 'LOGOUT'
 const SET_MESSAGE = 'SET_MESSAGE'
 const SET_VARIANT = 'SET_VARIANT'
 
@@ -16,6 +17,7 @@ export default function userReducer(state = dataInitial, action){
   switch (action.type) {
     case SIGN_IN:
     case SIGN_UP:
+    case LOGOUT:
       return {...state, user: action.payload}
     case SET_MESSAGE:
       return {...state, message: action.payload}
@@ -91,4 +93,12 @@ export const readUserAction = () => (dispatch) => {
       payload: user
     })    
   }
+}
+
+export const logoutAction = () => (dispatch) => {
+  localStorage.clear()
+  dispatch({
+    type: LOGOUT,
+    payload: null
+  })
 }
