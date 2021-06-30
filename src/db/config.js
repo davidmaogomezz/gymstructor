@@ -1,6 +1,3 @@
-import firebase from 'firebase/app'
-import 'firebase/firestore'
-
 const config = {
   apiKey: "AIzaSyBom6Vm1uY3xiVrSazRf_AIxG5LawD_qOo",
   authDomain: "instructor-online.firebaseapp.com",
@@ -11,7 +8,4 @@ const config = {
   measurementId: "G-6060B59VHS"
 };
 
-const fireb = firebase.initializeApp(config)
-const store = fireb.firestore()
-
-export default store
+export default config;

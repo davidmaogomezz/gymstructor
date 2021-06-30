@@ -28,6 +28,23 @@
   color: #61dafb;
 }
 
+.sign-up, .buttons-auth, .options-auth {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-sign-up {
+  width: 30vw;
+}
+
+.buttons-auth, .form-auth {
+  margin: 20%;
+}
+
+
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

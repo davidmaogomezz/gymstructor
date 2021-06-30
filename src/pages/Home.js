@@ -1,5 +1,9 @@
-function Home() {
-  return <h2>Home</h2>;
+const Home = () => {
+  return (
+    <div>
+      <h1>Home protect</h1>
+    </div>
+  )
 }
 
-export default Home;
+export default Home
