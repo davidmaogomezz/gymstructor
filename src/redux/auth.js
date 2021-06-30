@@ -35,6 +35,7 @@ export const signInAction = (email, password) => (dispatch) => {
       payload: user
     })
     localStorage.setItem('user', JSON.stringify(user))
+    window.location.href = '/home'
    }).catch(err => {
     dispatch({
       type: SET_MESSAGE,
@@ -47,7 +48,7 @@ export const signInAction = (email, password) => (dispatch) => {
   })    
 }
 
-export const signUPAction = (email, password) => (dispatch) => {
+export const signUpAction = (email, password) => (dispatch) => {
   auth.createUserWithEmailAndPassword(email, password).then(response => {
     const user = response.user
     dispatch({
@@ -55,6 +56,7 @@ export const signUPAction = (email, password) => (dispatch) => {
       payload: user
     })
     localStorage.setItem('user', JSON.stringify(user))
+    window.location.href = '/home'
   }).catch(err => {
     dispatch({
       type: SET_MESSAGE,
