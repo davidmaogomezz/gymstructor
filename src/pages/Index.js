@@ -1,3 +1,4 @@
+import { Button, Space } from 'antd';
 import { useHistory } from 'react-router-dom';
 
 const Index = () => {
@@ -5,22 +6,25 @@ const Index = () => {
   const history = useHistory();
 
   const routes = [
-    { name: 'Iniciar sesión', path: 'sign-in', variant: 'primary'},
-    { name: 'Registrarme', path: 'sign-up', variant: 'secondary'}
+    { id: 1, name: 'Iniciar sesión', path: 'sign-in', variant: 'primary'},
+    { id: 2, name: 'Registrarme', path: 'sign-up', variant: 'secondary'}
   ]
 
   const navigate = (path) => {
     history.push(path)
   }
 
+  const renderButtons = () => (
+    routes.map((route) => {          
+      return <Button key={route.id} type={route.variant} onClick={() => navigate(route.path)}>{route.name}</Button>                  
+    })       
+  )
+
   return (
     <div className="buttons-auth">
-      {
-        routes.map((route) => {          
-          // TODO implement button ant design
-          return <button onClick={() => navigate(route.path)}>{route.name}-{route.variant}</button>
-        })        
-      }
+      <Space size="small" direction="vertical">
+        {renderButtons()}
+      </Space>
     </div>
   )
 }
