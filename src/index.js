@@ -6,7 +6,6 @@ import './index.css';
 import './App.css';
 import App from './routes/App';
 import reportWebVitals from './reportWebVitals';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 const store = generateStore()
 
