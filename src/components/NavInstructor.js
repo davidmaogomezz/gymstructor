@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { Navbar } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
 
 import {logoutAction} from '../redux/auth'
@@ -15,17 +14,18 @@ const NavInstructor = () => {
   }
 
   return (
-    <Navbar bg="light" expand="lg">
+    // todo: implement nav ant design
+    <div className="navbar-instructor">
       <Link className="navbar-brand" to="/">Gymstructor</Link>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
       {
         user ? (
-          <button className="nav-link" onClick={logout}>Salir</button>
+          <button className="" onClick={logout}>Salir</button>
         ) : (
-          <button className="nav-link" onClick={() => window.location.href = '/sign-in'}>Ingresar</button>
+          <button className="" onClick={() => window.location.href = '/sign-in'}>Ingresar</button>
         )
-      }
-    </Navbar>    
+      }      
+    </div>
+
   )
 }
 

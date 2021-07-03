@@ -1,4 +1,3 @@
-import { Button } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 
 const Index = () => {
@@ -17,10 +16,9 @@ const Index = () => {
   return (
     <div className="buttons-auth">
       {
-        routes.map((route) => {
-          return <Button key={route.path} onClick={() => navigate(route.path)} variant={route.variant} size="lg" block>
-                  {route.name}
-                </Button>
+        routes.map((route) => {          
+          // TODO implement button ant design
+          return <button onClick={() => navigate(route.path)}>{route.name}-{route.variant}</button>
         })        
       }
     </div>
