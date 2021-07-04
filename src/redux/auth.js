@@ -80,7 +80,7 @@ export const messageAction = (message) => (dispatch) => {
 
 export const typeAction = (variant) => (dispatch) => {
   dispatch({
-    type: SET_MESSAGE,
+    type: SET_TYPE,
     payload: variant
   })
 }
