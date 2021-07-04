@@ -1,12 +1,14 @@
-
-import { Alert } from 'react-bootstrap';
+import { Alert } from 'antd'
 
 const AlertCustom = (props) => {
   let alert = null
   if (props.message !== '' && props.variant !== '') {
-    alert = <Alert className="mt-2" variant={props.variant} onClose={props.reset} dismissible>
-              {props.message}
-            </Alert>
+    alert = <Alert
+              message={props.message}
+              type={props.type}
+              closable
+              onClose={props.reset}
+            />
   }
   return alert
 }
