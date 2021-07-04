@@ -7,7 +7,7 @@ import {messageAction} from '../redux/auth'
 import {typeAction} from '../redux/auth'
 
 import AlertInstructor from '../components/AlertInstructor'
-import { Link } from "react-router-dom";
+import FormAuth from '../components/FormAuth'
 
 const SignIn = () => {
   const[email, setEmail] = useState('')
@@ -17,8 +17,7 @@ const SignIn = () => {
   const message = useSelector(store => store.auth.message)
   const type = useSelector(store => store.auth.type)
 
-  const signIn = (e) => {
-    e.preventDefault()    
+  const action = () => {
     dispatch(signInAction(email, password))
   }
 
@@ -28,18 +27,18 @@ const SignIn = () => {
   }
 
   return (
-    <div className="form-auth sign-up">
-      <h4 className="mt-2">Iniciar sesión</h4>
+    <div className="form-auth">
       <Space direction="vertical">
         <AlertInstructor message={message} type={type} reset={resetMessage}/>
-        <form className="form-group form-sign-up" onSubmit={signIn}>
-          <input onChange={(e) => setEmail(e.target.value)} className="mt-4 form-control" placeholder="Introduce el email" type="text" />
-          <input onChange={(e) => setPassword(e.target.value)} className="mt-4 form-control" placeholder="Introduce el password" type="password" />
-          <div className="options-auth">
-            <button className="mt-4 btn btn-primary">Iniciar sesión</button>
-            <Link to="/sign-up">Registrarme</Link>
-          </div>
-        </form>
+        <FormAuth
+          title='Iniciar sesión'
+          email={email} 
+          password={password} 
+          setEmail={setEmail} 
+          setPassword={setPassword}
+          buttonText='Ingresar'
+          action={action}
+        />
       </Space>
     </div>
   )  
