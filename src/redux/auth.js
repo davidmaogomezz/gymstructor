@@ -3,14 +3,14 @@ import {auth} from "../db/auth";
 const dataInitial = {
   user: null,
   message: '',
-  variant: ''
+  type: ''
 }
 
 const SIGN_IN = 'SIGN_IN'
 const SIGN_UP = 'SIGN_UP'
 const LOGOUT = 'LOGOUT'
 const SET_MESSAGE = 'SET_MESSAGE'
-const SET_VARIANT = 'SET_VARIANT'
+const SET_TYPE = 'SET_TYPE'
 
 // reducers
 export default function userReducer(state = dataInitial, action){
@@ -21,8 +21,8 @@ export default function userReducer(state = dataInitial, action){
       return {...state, user: action.payload}
     case SET_MESSAGE:
       return {...state, message: action.payload}
-    case SET_VARIANT:
-      return {...state, variant: action.payload}
+    case SET_TYPE:
+      return {...state, type: action.payload}
     default:
       return state
   }
@@ -44,8 +44,8 @@ export const signInAction = (email, password) => (dispatch) => {
       payload: err.message
     })    
     dispatch({
-      type: SET_VARIANT,
-      payload: 'danger'
+      type: SET_TYPE,
+      payload: 'error'
     })
   })    
 }
@@ -65,8 +65,8 @@ export const signUpAction = (email, password) => (dispatch) => {
       payload: err.message
     })    
     dispatch({
-      type: SET_VARIANT,
-      payload: 'danger'
+      type: SET_TYPE,
+      payload: 'error'
     })
   })    
 }
@@ -78,7 +78,7 @@ export const messageAction = (message) => (dispatch) => {
   })
 }
 
-export const variantAction = (variant) => (dispatch) => {
+export const typeAction = (variant) => (dispatch) => {
   dispatch({
     type: SET_MESSAGE,
     payload: variant
