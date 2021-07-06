@@ -35,7 +35,7 @@ const NavInstructor = () => {
     </Menu.Item>
     if (user) {
       return <Menu.Item key='key-button-auth' style={rightStyle}>
-        <Link onClick={logout}>Salir</Link>
+        <Link to='/sign-in' onClick={logout}>Salir</Link>
       </Menu.Item>
     }
     return item
