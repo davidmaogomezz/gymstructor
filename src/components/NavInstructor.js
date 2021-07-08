@@ -8,8 +8,8 @@ const NavInstructor = () => {
   const user = useSelector(store => store.auth.user)
 
   const links = [
-    { id: '1', name: 'Gymstructor', link: '/' },
-    { id: '2', name: 'Contacto', link: '/contact' }
+    { id: '1', name: 'Gymstructor', link: '/', public: true },
+    { id: '2', name: 'Users', link: '/Users', public: false }
   ]
 
   const dispatch = useDispatch()
@@ -21,10 +21,12 @@ const NavInstructor = () => {
   const itemsLeft = () => {
     let items = []
     links.forEach((link) => {
-      const item = <Menu.Item key={link.id}>
-        <Link to={link.link}>{link.name}</Link>
-      </Menu.Item>
-      items.push(item)
+      if (link.public || user) {
+        const item = <Menu.Item key={link.id}>
+          <Link to={link.link}>{link.name}</Link>
+        </Menu.Item>
+        items.push(item)
+      }
     })
     return items
   }

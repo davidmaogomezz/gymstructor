@@ -3,12 +3,15 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import ProtectedRoute from '../components/ProtectedRoute';
 
+import Layout from './../components/Layout'
+
 import NotFound from './../pages/NotFound'
 import Index from './../pages/Index'
-import Home from './../pages/Home'
 import SignIn from './../pages/SignIn'
 import SignUp from './../pages/SignUp'
-import Layout from './../components/Layout'
+
+import Home from './../pages/Home'
+import Users from './../pages/Users'
 
 const App = () => {
   return (
@@ -20,6 +23,7 @@ const App = () => {
           <Route exact path="/sign-up" component={SignUp}/>
 
           <ProtectedRoute exact path="/home" component={Home}/>
+          <ProtectedRoute exact path="/users" component={Users}/>
           
           <Route path='*' component={NotFound}/>
         </Switch>      
