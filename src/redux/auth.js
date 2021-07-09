@@ -1,13 +1,14 @@
-import {auth} from "../db/auth";
+import axios from 'axios';
 // const
 const dataInitial = {
+  headers: null,
   user: null,
   message: '',
   type: ''
 }
 
-const SIGN_IN = 'SIGN_IN'
-const SIGN_UP = 'SIGN_UP'
+const SET_USER = 'SET_USER'
+const SET_HEADERS = 'SET_HEADERS'
 const LOGOUT = 'LOGOUT'
 const SET_MESSAGE = 'SET_MESSAGE'
 const SET_TYPE = 'SET_TYPE'
@@ -15,8 +16,9 @@ const SET_TYPE = 'SET_TYPE'
 // reducers
 export default function userReducer(state = dataInitial, action){
   switch (action.type) {
-    case SIGN_IN:
-    case SIGN_UP:
+    case SET_HEADERS:
+      return {...state, headers: action.payload}
+    case SET_USER:
     case LOGOUT:
       return {...state, user: action.payload}
     case SET_MESSAGE:
@@ -30,45 +32,21 @@ export default function userReducer(state = dataInitial, action){
 
 // actions
 export const signInAction = (email, password) => (dispatch) => {
-  auth.signInWithEmailAndPassword(email, password).then(response => {
-    const user = response.user
-    dispatch({
-      type: SIGN_IN,
-      payload: user
-    })
-    localStorage.setItem('user', JSON.stringify(user))
-    window.location.href = '/home'
-   }).catch(err => {
-    dispatch({
-      type: SET_MESSAGE,
-      payload: err.message
-    })    
-    dispatch({
-      type: SET_TYPE,
-      payload: 'error'
-    })
-  })    
+  axios.post('http://127.0.0.1:3000/api/v1/users/sign_in', { user: { email: email, password: password } }).then(response => {
+    if (response.status === 200) setVarsAuth(response, dispatch)
+  }).catch(err => {
+    dispatch({ type: SET_MESSAGE, payload: err.message })    
+    dispatch({ type: SET_TYPE, payload: 'error' })    
+  })
 }
 
 export const signUpAction = (email, password) => (dispatch) => {
-  auth.createUserWithEmailAndPassword(email, password).then(response => {
-    const user = response.user
-    dispatch({
-      type: SIGN_IN,
-      payload: user
-    })
-    localStorage.setItem('user', JSON.stringify(user))
-    window.location.href = '/home'
+  axios.post('http://127.0.0.1:3000/api/v1/users', { user: { email: email, password: password } }).then(response => {
+    if (response.status === 200) setVarsAuth(response, dispatch)
   }).catch(err => {
-    dispatch({
-      type: SET_MESSAGE,
-      payload: err.message
-    })    
-    dispatch({
-      type: SET_TYPE,
-      payload: 'error'
-    })
-  })    
+    dispatch({ type: SET_MESSAGE, payload: err.message })    
+    dispatch({ type: SET_TYPE, payload: 'error' })    
+  })
 }
 
 export const messageAction = (message) => (dispatch) => {
@@ -86,12 +64,11 @@ export const typeAction = (variant) => (dispatch) => {
 }
 
 export const readUserAction = () => (dispatch) => {
+  const headers = localStorage.getItem('headers')
   const user = localStorage.getItem('user')
   if(localStorage.getItem('user')){
-    dispatch({
-      type: SIGN_IN,
-      payload: user
-    })    
+    dispatch({ type: SET_HEADERS, payload: headers })
+    dispatch({ type: SET_USER, payload: user })
   }
 }
 
@@ -102,4 +79,16 @@ export const logoutAction = () => (dispatch) => {
     payload: null
   })
   window.location.href = '/sign-in'
+}
+
+
+// functions own
+const setVarsAuth = (response, dispatch) => {
+  const headers = JSON.stringify(response.headers)
+  const user = JSON.stringify(response.data.user)
+  dispatch({ type: SET_HEADERS, payload: headers })
+  dispatch({ type: SET_USER, payload: user })      
+  localStorage.setItem('headers', headers)
+  localStorage.setItem('user', user)
+  window.location.href = '/home'
 }
